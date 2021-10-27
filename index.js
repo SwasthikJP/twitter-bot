@@ -210,7 +210,7 @@ console.log("heeeeee"+tweet.id_str);
 }
 
 
-// streamtweet();
+streamtweet();
 
 
 
