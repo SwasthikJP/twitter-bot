@@ -3,7 +3,7 @@
 var Twit = require('twit');
 var axios=require("axios").default;
 const imageToBase64=require("image-to-base64");
-require('dotenv').config();
+require('dotenv').config({path:`.env`});
 
 var T=new Twit({
     
@@ -14,20 +14,97 @@ var T=new Twit({
     
 })
 
+const memes=[
+  {
+    cmd:'slap',
+    id:438680,
+    caplist:[true,true,true,true]
+  },
+
+{
+  cmd:'confuse',
+  id:87743020,
+  caplist:[true,true,true,true]
+},
+  {
+  cmd:'sharpturn',
+  id:124822590,
+  caplist:[true,true,true,true]
+  },
+  {
+    cmd:'sexyaccent',
+    id:71428573,
+    caplist:[true,true]
+  },
+  {
+    cmd:'rockshock',
+    id:21735,
+    caplist:[false,false]
+  },
+  {
+    cmd:'scrolltruth',
+    id:123999232,
+    caplist:[false,true]
+  },
+  {
+    cmd:'shockpikachu',
+    id:155067746,
+    caplist:[false,false,false]
+  },
+  {
+    cmd:'dudewithsign',
+    id:216951317,
+    caplist:[false,false]
+  },
+  {
+    cmd:'makeup',
+    id:195515965,
+    caplist:[false,false,false,false]
+  },
+  {
+    cmd:'drake',
+    id:181913649,
+    caplist:[false,false]
+  },
+  {
+    cmd:'gorden',
+    id:1894566,
+    caplist:[true,true]
+  },
+  {
+    cmd:'mind3',
+    id:128933819,
+    caplist:[true,true,true]
+  },
+  {
+    cmd:'mind4',
+    id:95614466,
+    caplist:[true,true,true,true]
+  }
+];
+
 
  
-async function getmeme(id,text1,text2){
+async function getmeme(obj){
+
     var options = {
         method: 'POST',
-        url: process.env.memeurl,
-        params: {
-            template_id : id,
-            username:process.env.usern,
-             password:process.env.password,
-             text0:text1,
-             text1:text2
-        },
+        url: process.env.memeurl
       };
+      var params={
+        template_id : obj.id,
+        username:process.env.usern,
+         password:process.env.password,
+         text0:"dd",
+         text1:"dd"
+        //  'boxes[0][text]' :text0,
+    };
+obj.textar.forEach((ele,index)=>{
+ params[`boxes[${index}][text]`]=ele;
+});
+
+options['params']=params;
+
       var url=null;
       try{
     var response=await axios.request(options);
@@ -43,55 +120,74 @@ if(response.data.success===false) throw response.data.error_message;
      
 }
 
-// getmeme(87743020,"hi","hi2").then((res)=>{
+
+
+// getmeme({id:87743020,textar:["",""]}).then((res)=>{
 //   if(!res.status) throw "error";
 //   console.log("gg"+res)
 // }).catch((err)=>{
 //   console.log("hehe"+err)
 // })
 
+function caps(strg,cond){
+  if(cond){
+    return strg.toUpperCase();
+  }else{
+    return strg;
+  }
+}
+
+function getmemeobj(id,textar,caplist){
+  textar.shift();
+ textar=textar.map((ele,index) => caps(ele,caplist[index]) );
+  var obj={
+    status:true,
+    id:id,
+    textar
+  };
+    // obj[`text`+index]=ele||"";
+  console.log(obj);
+return obj;
+}
 
 
  function sorttweet(tweet){
    console.log("hehe text" +tweet.text)
     const textar=tweet.text.split("-");
-  // const textar="@bot -slap 'hello' 'shutup'".split(" ");
+    // var st="@swasthikjp @respond -confuse,hello how you,iam fine";
 //   console.log(textar[2].slice(1,-1));
-  const textar2=textar[1].split(" ");
+  const textar2=textar[1].split(",");
 console.log(textar2)
+
 // console.log(textar2.pop().slice(1,-1))
     if(textar.length>=2){
-        switch(textar2[0]){
-            case 'slap':
-                return  {id:438680,text2:textar2.pop().slice(1,-1),text1:textar2.pop().slice(1,-1)};
-                // "@SwasthikJp @respondwithmeme @respondwithmeme -confuse 'gg' 'GG'"
-  
-          case 'confuse':
-                 return {id:87743020,text2:textar2.pop().slice(1,-1),text1:textar2.pop().slice(1,-1)};
-              
-  
-               default:
-                return  {id:438680,text2:textar2.pop().slice(1,-1),text1:textar2.pop().slice(1,-1)};
-  
-        }
+
+      var memeobj=memes.find(ele=>ele.cmd===textar2[0].trim());
+     if(memeobj){
+       return getmemeobj(memeobj.id,textar2,memeobj.caplist)
+     }else{
+       return {status:false,id:0,textar:[""]};
+     }
     }
+    return  {status:false,id:0,textar:[""]};
   }
 
 
- 
+
 // This function finds the latest tweet with the @respondwithmeme tag
 function streamtweet() {
   
 
-	var stream = T.stream('statuses/filter', { track: '@respondwithmeme' });
+	var stream = T.stream('statuses/filter', { track: '@'+process.env.bottag });
  
 stream.on('tweet',async function (tweet) {
   console.log(tweet)
   console.log(tweet.entities.user_mentions);
-if(tweet.user.screen_name!=="respondwithmeme"){
+if(tweet.user.screen_name!==process.env.bottag){
 
 var obj= sorttweet(tweet);
-getmeme(obj.id,obj.text1,obj.text2).then((res)=>{
+if(obj.status){
+getmeme(obj).then((res)=>{
 
   if(!res.status) throw "error";
 console.log("hehe"+res.url)
@@ -146,6 +242,7 @@ console.log("heeeeee"+tweet.id_str);
 });
 }
 }
+}
 );
 }
 
@@ -168,3 +265,4 @@ tags=tags+users.map((ele)=>'@'+ele.screen_name).join(" ");
 // getusernames(users)
 
 streamtweet();
+
