@@ -18,21 +18,21 @@ const memes=[
   {
     cmd:'slap',
     id:438680,
-    caplist:[true,true,true,true]
+    caplist:[true,true]
   },
 
 {
   cmd:'confuse',
   id:87743020,
-  caplist:[true,true,true,true]
+  caplist:[false,false,true]
 },
   {
   cmd:'sharpturn',
   id:124822590,
-  caplist:[true,true,true,true]
+  caplist:[false,false,false]
   },
   {
-    cmd:'sexyaccent',
+    cmd:'dexter',
     id:71428573,
     caplist:[true,true]
   },
@@ -42,7 +42,7 @@ const memes=[
     caplist:[false,false]
   },
   {
-    cmd:'scrolltruth',
+    cmd:'truth',
     id:123999232,
     caplist:[false,true]
   },
@@ -78,7 +78,7 @@ const memes=[
   },
   {
     cmd:'mind4',
-    id:95614466,
+    id:93895088,
     caplist:[true,true,true,true]
   }
 ];
@@ -95,8 +95,8 @@ async function getmeme(obj){
         template_id : obj.id,
         username:process.env.usern,
          password:process.env.password,
-         text0:"dd",
-         text1:"dd"
+         text0:" ",
+         text1:" "
         //  'boxes[0][text]' :text0,
     };
 obj.textar.forEach((ele,index)=>{
@@ -122,7 +122,7 @@ if(response.data.success===false) throw response.data.error_message;
 
 
 
-// getmeme({id:87743020,textar:["",""]}).then((res)=>{
+// getmeme({id:93895088,textar:["TEXT1","TEXT2","TEXT3","TEXT4"]}).then((res)=>{
 //   if(!res.status) throw "error";
 //   console.log("gg"+res)
 // }).catch((err)=>{
