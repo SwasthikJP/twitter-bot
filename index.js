@@ -1,13 +1,14 @@
 
 
-var Twit = require('twit');
-var axios=require("axios").default;
+const Twit = require('twit');
+const axios=require("axios").default;
 const imageToBase64=require("image-to-base64");
 require('dotenv').config({path:`.env`});
-const {sorttweet}=require("./modules/sorttweet.js");
+const sortTweet=require("./modules/sortTweet.js");
 
 
-var T=new Twit({
+
+const T=new Twit({
     
         consumer_key:process.env.consumer_key,
       consumer_secret:process.env.consumer_secret,
@@ -17,7 +18,7 @@ var T=new Twit({
 })
 
 
-async function getmemeurl(obj){
+async function getmemeUrl(obj){
 
     var options = {
         method: 'POST',
@@ -55,7 +56,7 @@ if(response.data.success===false) throw response.data.error_message;
 
 
 // This function finds the latest tweet with the @respondwithmeme tag
-function streamtweet() {
+function streamTweet() {
   
 
 	var stream = T.stream('statuses/filter', { track: '@'+process.env.bottag });
@@ -65,9 +66,9 @@ stream.on('tweet',async function (tweet) {
   console.log(tweet.entities.user_mentions);
 if(tweet.user.screen_name!==process.env.bottag){
 
-var obj= sorttweet(tweet);
+var obj= sortTweet(tweet);
 if(obj.status){
-getmemeurl(obj).then((res)=>{
+getmemeUrl(obj).then((res)=>{
 
   if(!res.status) throw "error";
 console.log("hehe"+res.url)
@@ -90,7 +91,7 @@ console.log("heeeeee"+tweet.id_str);
     T.post('media/metadata/create', meta_params, function (err, data, response) {
       if (!err) {
         // now we can reference the media and post a tweet (media will attach to the tweet)
-        var params = { status: getusernames(tweet.user.screen_name,tweet.entities.user_mentions) ,
+        var params = { status: getUsernames(tweet.user.screen_name,tweet.entities.user_mentions) ,
         media_ids:[mediaIdStr],
         in_reply_to_status_id:''+ tweet.id_str
      }
@@ -127,24 +128,24 @@ console.log("heeeeee"+tweet.id_str);
 }
 
 
-// sorttweet(tweet);
+// sortTweet(tweet);
 
 
 
-function getusernames(muser,users){
+function getUsernames(tweeter,users){
 //  var tags='@'+users.shift().screen_name;
 //  users.pop();
 users.pop();
-var tags='@'+muser+" ";
+var tags='@'+tweeter+" ";
 tags=tags+users.map((ele)=>'@'+ele.screen_name).join(" ");
  
  console.log(tags)
  return tags;
 }
 
-// getusernames(users)
+// getUsernames(users)
 
-streamtweet();
+streamTweet();
 
 function streamdm() {
   

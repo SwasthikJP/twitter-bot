@@ -1,5 +1,5 @@
 
-function caps(strg,cond){
+function converttoCaps(strg,cond){
     if(cond){
       return strg.toUpperCase();
     }else{
@@ -7,9 +7,9 @@ function caps(strg,cond){
     }
   }
 
-exports.apiparams=function (id,textar,caplist){
+module.exports=function (id,textar,caplist){
     textar.shift();
-   textar=textar.map((ele,index) => caps(ele,caplist[index]) );
+   textar=textar.map((ele,index) => converttoCaps(ele,caplist[index]) );
     var obj={
       status:true,
       id:id,
