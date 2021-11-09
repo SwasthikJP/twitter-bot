@@ -4,7 +4,7 @@ const Twit = require('twit');
 const axios=require("axios").default;
 const imageToBase64=require("image-to-base64");
 require('dotenv').config({path:`.env`});
-const sortTweet=require("./modules/sortTweet.js");
+const sortTweet=require("./modules/sorttweet.js");
 
 
 

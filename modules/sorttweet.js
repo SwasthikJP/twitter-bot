@@ -1,4 +1,4 @@
-const apiParams=require("./apiParams.js");
+const apiParams=require("./apiparams.js");
 const {memes}=require("../memes")
 
 module.exports= function (tweet){
