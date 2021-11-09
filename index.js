@@ -103,12 +103,7 @@ console.log("heeeeee"+tweet.id_str);
     })
   });
 
-// T.post('statuses/update', {
-//     status: 'This is a tweet @' + tweet.user.screen_name,
-//     in_reply_to_status_id: '' + tweet.id_str
-//   }, function(err, data, response) {
-//     console.log(data)
-//   });
+
 
 }
 )
