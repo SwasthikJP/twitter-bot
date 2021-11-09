@@ -1,7 +1,7 @@
-const {apiparams}=require("./apiparams.js");
+const apiParams=require("./apiParams.js");
 const {memes}=require("../memes")
 
-exports.sorttweet= function (tweet){
+module.exports= function (tweet){
     console.log("hehe text" +tweet.text)
      const textar=tweet.text.split("-");
      // var st="@swasthikjp @respond -confuse,hello how you,iam fine";
@@ -14,7 +14,7 @@ exports.sorttweet= function (tweet){
  
        var memeobj=memes.find(ele=>ele.cmd===textar2[0].trim());
       if(memeobj){
-        return apiparams(memeobj.id,textar2,memeobj.caplist)
+        return apiParams(memeobj.id,textar2,memeobj.caplist)
       }else{
         return {status:false,id:0,textar:[""]};
       }
