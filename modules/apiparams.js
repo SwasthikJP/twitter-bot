@@ -12,7 +12,7 @@ module.exports=function (id,textar,caplist){
    textar=textar.map((ele,index) => converttoCaps(ele,caplist[index]) );
     var obj={
       status:true,
-      id:id,
+      id,
       textar
     };
       // obj[`text`+index]=ele||"";

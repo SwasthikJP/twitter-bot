@@ -65,5 +65,20 @@ exports.memes=[
       cmd:'mind4',
       id:93895088,
       caplist:[true,true,true,true]
+    },
+    {
+      cmd:'distractedbf',
+      id:112126428,
+      caplist:[true,true,true]
+    },
+    {
+      cmd:'strongweakdoge',
+      id:247375501,
+      caplist:[false,false,false,false]
+    },
+    {
+      cmd:'uno',
+      id:217743513,
+      caplist:[false,false]
     }
   ];
