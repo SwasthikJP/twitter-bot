@@ -130,9 +130,9 @@ console.log("heeeeee"+tweet.id_str);
 function getUsernames(tweeter,users){
 //  var tags='@'+users.shift().screen_name;
 //  users.pop();
-users.pop();
+
 var tags='@'+tweeter+" ";
-tags=tags+users.map((ele)=>'@'+ele.screen_name).join(" ");
+tags=tags+users.filter((ele)=>ele.screen_name!=process.env.bottag).map((ele)=>'@'+ele.screen_name).join(" ");
  
  console.log(tags)
  return tags;
