@@ -131,8 +131,9 @@ function getUsernames(tweeter,users){
 //  var tags='@'+users.shift().screen_name;
 //  users.pop();
 
-var tags='@'+tweeter+" ";
-tags=tags+users.filter((ele)=>ele.screen_name!=process.env.bottag).map((ele)=>'@'+ele.screen_name).join(" ");
+let tags='@'+tweeter+" ";
+let uniqueUsers=new Set(users.filter((ele)=>ele.screen_name!=process.env.bottag).map((ele)=>'@'+ele.screen_name));
+tags=tags+[...uniqueUsers].join(" ");
  
  console.log(tags)
  return tags;
