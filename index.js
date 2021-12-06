@@ -123,8 +123,6 @@ console.log("heeeeee"+tweet.id_str);
 }
 
 
-// sortTweet(tweet);
-
 
 
 function getUsernames(tweeter,users){
@@ -139,27 +137,7 @@ tags=tags+[...uniqueUsers].join(" ");
  return tags;
 }
 
-// getUsernames(users)
+
 
 streamTweet();
 
-function streamdm() {
-  
-try{
-	var stream = T.stream('user');
- 
-// stream.on('direct_message', function (tweet) {
-
-// console.log(tweet)
-
-// }
-// );
-console.log(stream)
-}
-catch(er){
-  console.log(er);
-}
-
-}
-
-// streamdm();
