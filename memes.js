@@ -80,5 +80,40 @@ exports.memes=[
       cmd:'uno',
       id:217743513,
       caplist:[false,false]
+    },
+    {
+      cmd:'sayit',
+      id:72525473,
+      caplist:[true,true,true]
+    },
+    {
+      cmd:'dabcrying',
+      id:96423762,
+      caplist:[true,true]
+    },
+    {
+      cmd:'yeschad',
+      id:232844223,
+      caplist:[true,true]
+    },
+    {
+      cmd:'undertaker',
+      id:257745141,
+      caplist:[true,true]
+    },
+    {
+      cmd:'wwevince',
+      id:131283297,
+      caplist:[true,true,true]
+    },
+    {
+      cmd:'maybe',
+      id:283674964,
+      caplist:[true,true]
+    },
+    {
+      cmd:'beating',
+      id:307594199,
+      caplist:[true,true,true,true,true]
     }
   ];
